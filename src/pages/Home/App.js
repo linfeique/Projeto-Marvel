@@ -16,7 +16,11 @@ class App extends Component{
   }
 
   buscaPersonagens(){
-    axios.get('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=579c74a6155ffa4c45cd4aff02390097&hash=d1831f683ce2a05213c1e5ee4833599d')
+    axios.get('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=579c74a6155ffa4c45cd4aff02390097&hash=d1831f683ce2a05213c1e5ee4833599d', {
+      data: {
+        limit: 40
+      }
+    })
     .then(response => {
       this.setState({ listaPersonagens: response.data.data.results })
       console.log(this.state.listaPersonagens)
@@ -29,9 +33,23 @@ class App extends Component{
   }
 
   atualizaEstadoPesquisa(event){
-    this.setState({search: event.target.value});
-    this.state.listaPersonagens.filter(x => x.name == this.state.search);
-    this.componentDidMount();
+    this.setState({search: event.target.value}, () => {
+      this.filtraOsBaguio();
+    });
+  }
+
+  filtraOsBaguio(){
+    let listaFiltrada = this.state.listaPersonagens;
+
+    if (this.state.search !== null && this.state.search !== "") {
+      listaFiltrada = listaFiltrada.filter(
+        x =>
+          x.name.toLowerCase().includes(this.state.search.toLowerCase())
+      );
+      this.setState({ listaPersonagens: listaFiltrada });
+    } else{
+      this.buscaPersonagens();
+    }
   }
 
   render(){
