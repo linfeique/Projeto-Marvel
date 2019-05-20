@@ -77,7 +77,7 @@ class App extends Component{
               return(
                 <div className="card" key={item.id}>
                   <div className="card-header">
-                    <img src={imgHinata}/>
+                    <img src={item.thumbnail.path + '.jpg'}/>
                     <div className="cover"></div>
                     <div className="menu">
                       <ul>
