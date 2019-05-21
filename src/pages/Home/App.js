@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import imgLogo from '../../assets/images/marvel.svg'
-import imgHinata from '../../assets/images/hinata.jpg';
 import axios from 'axios';
 
 class App extends Component{
@@ -18,7 +17,7 @@ class App extends Component{
   buscaPersonagens(){
     axios.get('https://gateway.marvel.com/v1/public/characters?ts=1&apikey=579c74a6155ffa4c45cd4aff02390097&hash=d1831f683ce2a05213c1e5ee4833599d', {
       data: {
-        limit: 40
+        limit: 100
       }
     })
     .then(response => {
@@ -77,16 +76,8 @@ class App extends Component{
               return(
                 <div className="card" key={item.id}>
                   <div className="card-header">
-                    <img src={item.thumbnail.path + '.jpg'}/>
+                    <img src={item.thumbnail.path + '.jpg'} width="100%" height="100%"/>
                     <div className="cover"></div>
-                    <div className="menu">
-                      <ul>
-                        <li className="ion-social-facebook"></li>
-                        <li className="ion-social-twitter"></li>
-                        <li className="ion-social-github"></li>
-                      </ul>
-                      <span className="ion-android-more-vertical"></span>
-                    </div>
                     <div className="name">
                       <span className="first">{item.name}</span>
                     </div>
